@@ -33,7 +33,13 @@
 					case 4: 
 					extrato();
 					break;
-					case 5: 
+                    case 5: 
+					transferencia();
+					break;
+					case 6:
+            console.log(`\n${nomeUsuario}, foi um prazer ter você por aqui!`); //isso gera uma mensagem de até logo
+            return;
+					case 7: 
 					sair();
 				default:
 				erro();
@@ -43,6 +49,7 @@
 		}		
 
 		function ver_saldo() {
+			
 			alert('Seu saldo atual é: ' + saldo);
 			inicio();
 		}
@@ -53,7 +60,11 @@
 			if (isNaN(deposito) || deposito === '') {
 				alert('Por favor, informe um número:');
 				fazer_deposito();
-			} else {
+				return;
+			} 
+			if ( deposito > saldo || deposito <= 0){
+                alert("Operação não autorizada")}
+			else {
 				saldo += deposito;
 				ver_saldo();
 			}
@@ -79,6 +90,20 @@
 			}
             ver_saldo();
 		}
+
+		function transferencia() {
+    var conta = parseInt(prompt("Digite o número da conta para transferência:"));
+    var valor = parseFloat(prompt("Digite o valor a transferencia:"));
+    if (valor <= 0) {
+        alert("Operação não autorizada. Valor inválido.");
+    } else if (valor > saldo) {
+        alert("Operação não autorizada. Saldo insuficiente.");
+    } else {
+        saldo -= valor;
+        alert(`\nTransferência de R$ ${valor.toFixed(2)} para a conta ${conta} realizada com sucesso.`);
+    }
+}
+
 
 		function erro() {
 			alert('Por favor, informe um número entre 1 e 4');
